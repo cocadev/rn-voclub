@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { Platform, Image, Text } from 'react-native'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux' 
-import { StackNavigator,DrawerNavigator, TabNavigator, TabBarBottom, NavigationActions } from 'react-navigation'
-import { ActionCreators } from './actions/index'
+import React from 'react'
+import { Image, Text } from 'react-native'
+import { createAppContainer, TabBarBottom, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createBottomTabNavigator, BottomTabBar } from 'react-navigation-tabs';
 
 import Splash from './containers/Splash'
 import Home from './containers/Home'
@@ -41,7 +41,7 @@ import { getDeals } from './actions/deals'
 import { changeTab } from './actions/tabnav'
 
 
-const HomeStack = StackNavigator({
+const HomeStack = createStackNavigator({
     MainPage:{
         screen: Home,
         navigationOptions:{
@@ -53,7 +53,7 @@ const HomeStack = StackNavigator({
     }
 });
 
-const DealStack = StackNavigator({
+const DealStack = createStackNavigator({
     DealsList:{
         screen: Deals,
         navigationOptions:{
@@ -66,7 +66,7 @@ const DealStack = StackNavigator({
     
 });
 
-const MapStack = StackNavigator({
+const MapStack = createStackNavigator({
     Map:{
         screen: Map,
         navigationOptions:{
@@ -79,7 +79,7 @@ const MapStack = StackNavigator({
 });
 
 
-const FavStack = StackNavigator({
+const FavStack = createStackNavigator({
     Fav:{
         screen: Favourites,
         navigationOptions:{
@@ -92,7 +92,7 @@ const FavStack = StackNavigator({
 });
 
 
-const ProfileStack = StackNavigator({
+const ProfileStack = createStackNavigator({
     Profile:{
         screen: Profile,
         navigationOptions:{
@@ -105,7 +105,7 @@ const ProfileStack = StackNavigator({
 });
 
 // Tab Navigator
-const Tabs = TabNavigator({
+const Tabs = createBottomTabNavigator({
     DealsTab:DealStack,
     MapTab:MapStack,
     HomeTab:HomeStack,
@@ -184,7 +184,7 @@ const Tabs = TabNavigator({
 // Side menu
 
 
-const DrawerStack = DrawerNavigator({
+const DrawerStack = createDrawerNavigator({
     Tabs:{screen:Tabs},
 },{
     contentComponent: SideMenu,
@@ -197,7 +197,7 @@ const DrawerStack = DrawerNavigator({
 })
 
 
-const DrawerNavigation = StackNavigator({
+const DrawerNavigation = createStackNavigator({
     DrawerStack: { screen: DrawerStack }
   }, {
     headerMode: 'float',
@@ -218,7 +218,7 @@ const DrawerNavigation = StackNavigator({
   })
 
 // Main Navigator
-const Routes = {
+const HomeNavigator = createStackNavigator({
     Splash: {
       screen: Splash,
       navigationOptions:{
@@ -387,15 +387,13 @@ const Routes = {
             headerVisible: true,
         },
     },
-};
-
-const RootAppNavigator = StackNavigator(Routes, { 
-    // initialRouteName:'Pin',
-    // headerMode: 'none',
-    //     navigationOptions:{
-    //         headerVisible:false,
-    //     }
 });
+
+const RootAppNavigator = createAppContainer(
+    createSwitchNavigator({
+      Home: HomeNavigator,
+    })
+  );
 
 export default RootAppNavigator;
 

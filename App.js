@@ -4,8 +4,6 @@ import React, { Component } from 'react';
 import { Platform } from 'react-native';
 
 import { Provider, connect } from 'react-redux';
-import { createStore, applyMiddleware, combineReduxers, compose } from 'redux';
-import { StackNavigator, addNavigationHelpers } from "react-navigation";
 
 import AppContainer from './app/containers/AppContainer';
 import getStore from "./app/store";

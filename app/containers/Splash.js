@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import ReactNative, { StatusBar, AsyncStorage, Linking } from 'react-native'
+import ReactNative, { StatusBar, Linking } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 
 import { StackActions, NavigationActions } from 'react-navigation'

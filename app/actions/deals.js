@@ -1,4 +1,4 @@
-import ReactNative, { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
 import * as types from './types'
 import globals from '../libs/global'
 import Base64 from '../libs/base64'

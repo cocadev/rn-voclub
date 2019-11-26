@@ -1,5 +1,5 @@
 import globalVals from './global'
-import ReactNative, { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
 
 class API {
     static headers() {

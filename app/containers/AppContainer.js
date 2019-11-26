@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { YellowBox } from 'react-native';
+import { YellowBox, View } from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';

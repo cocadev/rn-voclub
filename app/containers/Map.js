@@ -18,8 +18,8 @@ import Hamburger from '../components/hamburger';
 
 import images from '../assets/imgLibrary';
 
-import { Marker, Callout } from 'react-native-maps'
-import ClusteredMapView from 'react-native-maps-super-cluster'
+// import { Marker, Callout } from 'react-native-maps'
+// import ClusteredMapView from 'react-native-maps-super-cluster'
 
 var _ = require('lodash');
 import Moment from 'moment'
@@ -148,7 +148,7 @@ class Map extends Component {
           clusteredPoints = clusteringEngine.getLeaves(clusterId, 100)
 
         return (
-          <Marker coordinate={coordinate} onPress={()=>this.clusterPress(clusteredPoints)}>
+          <View coordinate={coordinate} onPress={()=>this.clusterPress(clusteredPoints)}>
             <ImageBackground source={images.cluster} style={Styles.myClusterStyle}>
               <Text style={Styles.myClusterTextStyle}>
                 {pointCount}
@@ -172,14 +172,14 @@ class Map extends Component {
                */
             }
             
-          </Marker>
+          </View>
         )
       }
     
     //   renderMarker = (data) => <Marker key={data.id || Math.random()} coordinate={{latitude:data.latitude,longitude:data.longitude}} />
     renderMarker = (data) => {
         return(
-            <Marker identifier={'pin-${data.dealID}'} key={data.dealID || Math.random()} image={images.marker} coordinate={data.location} onPress={()=>this.markerPress(data)} />   
+            <View identifier={'pin-${data.dealID}'} key={data.dealID || Math.random()} image={images.marker} coordinate={data.location} onPress={()=>this.markerPress(data)} />   
         )
     }
 
@@ -231,7 +231,7 @@ class Map extends Component {
         return <View style={Styles.containerNoPadding}>
                 <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)"/>
                 { this.state.dataSource.length>0 ?
-                <ClusteredMapView
+                <View
                     style={{flex: 1}}
                     ref={(r) => { this.map = r }}
                     data={this.state.dataSource}

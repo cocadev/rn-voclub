@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import ReactNative, { StatusBar, InteractionManager, AsyncStorage } from 'react-native'
+import ReactNative, { StatusBar, InteractionManager } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
 import { connect } from 'react-redux'
 import { NavigationActions, StackActions } from 'react-navigation'
 import { bindActionCreators } from 'redux' 

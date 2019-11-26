@@ -8,7 +8,6 @@ import user from './user';
 export default combineReducers({
     Deals,
     navReducer,
-    tabNav,
     general,
     user,
 });
