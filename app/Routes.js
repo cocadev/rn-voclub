@@ -77,7 +77,7 @@ const DealStack = createStackNavigator(
 		navigationOptions: ({ navigation }) => ({
 			tabBarIcon: ({ focused }) => {
 				return <Image source={focused ? images.iconListActive : images.iconList} style={Styles.footerIcon} />;
-			},
+			}
 		})
 	}
 );
@@ -155,6 +155,7 @@ const Tabs = createBottomTabNavigator(
 		ProfileTab: ProfileStack
 	},
 	{
+        initialRouteName: "HomeTab",
 		tabBarOptions: {
 			activeTintColor: 'tomato',
 			inactiveTintColor: 'gray',
@@ -162,32 +163,29 @@ const Tabs = createBottomTabNavigator(
 			style: {
 				padding: 2
 			}
-		}
-	}
-	// {
-	// 	navigationOptions: ({ navigation }) => ({
-	// 	  tabBarOnPress: async ({previousScene, scene, jumpToIndex})=> {
-	// 	      console.log("Hey my screens ++++++ ===== ", scene);
-	// 	      console.log(navigation);
-	// 	      navigation.setParams({pageTitle:'Offers'});
-	// 	    if(scene.index==0){
-	// 	        console.log("Trying to call change tab ===== ");
-	// 	        globalVals.searchKeyword = "";
-	// 	        globalVals.refreshDeals = true;
-	// 	        store.dispatch(changeTab('getDeals',"Offers"));
-	// 	    }else if(scene.index==4) {
-	// 	        store.dispatch(changeTab('Profile','Profile'));
-	// 	    }else if(scene.index==3) {
-	// 	        console.log("current scene = favourites" +scene.index);
-	// 	        store.dispatch(changeTab('Favourites','Favorite'));
-	// 	        globalVals.searchKeyword = "";
-	// 	        globalVals.refreshDeals = true;
-	// 	    }
-	// 	    jumpToIndex(scene.index);
-	// 	  },
-	// 	}),
-
-	// }
+        },
+        navigationOptions: ({ navigation }) => ({
+            tabBarOnPress: async ({previousScene, scene, jumpToIndex})=> {
+                console.log("Hey my screens ++++++ ===== ", scene);
+                console.log(navigation);
+                navigation.setParams({pageTitle:'Offers'});
+              if(scene.index==0){
+                  console.log("Trying to call change tab ===== ");
+                  globalVals.searchKeyword = "";
+                  globalVals.refreshDeals = true;
+                  store.dispatch(changeTab('getDeals',"Offers"));
+              }else if(scene.index==4) {
+                  store.dispatch(changeTab('Profile','Profile'));
+              }else if(scene.index==3) {
+                  console.log("current scene = favourites" +scene.index);
+                  store.dispatch(changeTab('Favourites','Favorite'));
+                  globalVals.searchKeyword = "";
+                  globalVals.refreshDeals = true;
+              }
+              jumpToIndex(scene.index);
+            },
+          }),
+	},
 );
 
 // Side menu
