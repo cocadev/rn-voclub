@@ -231,8 +231,6 @@ class Deals extends Component {
 
 		var cat = this.props.navigation.getParam('cat', 'Offers');
 
-		// console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW', cat);
-
 		if ( state.pageTitle !== cat && cat != 'Favorite') {
 			console.log(' Deals Screen ==== ' + this.props.navigation.state.routeName);
 
@@ -249,33 +247,6 @@ class Deals extends Component {
 			this.setState({ pageTitle: cat });
 		}
 	}
-
-	// componentWillReceiveProps(nextProps){
-
-	//     console.log(nextProps);
-
-	//     console.log("Deals Screen ===== Actual ========= " + nextProps.tabNav.param);
-
-	//     if(nextProps.tabNav.param != "Favorite"){
-
-	//         console.log( " Deals Screen ==== " + this.props.navigation.state.routeName);
-
-	//         var cat = nextProps.tabNav.param;
-
-	//         if(globalVals.refreshDeals === true){
-	//             this.loadDeals(cat);
-	//         }
-
-	//         console.log("Deal AAAA 1");
-	//         console.log(cat);
-	//         console.log(this.state.pageTitle);
-	//         if(cat!=this.state.pageTitle){
-	//             this.props.navigation.setParams({page:cat});
-	//         }
-	//         this.setState({'pageTitle':cat});
-
-	//     }
-	// }
 
 	componentWillAppear() {
 		console.log('Deal component will appear');
