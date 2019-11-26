@@ -72,7 +72,7 @@ class Redeem extends Component {
         this.props.dealDetails(globalVals.redeemDealId).then( (res) => {
 
             console.log("#########");
-            console.log(res.response.voucher.priceCredits);
+            // console.log(res.response.voucher.priceCredits);
             console.log("#########");
 
             this.setState({loadingData: false });

@@ -69,7 +69,7 @@ class Notifications extends Component {
             
             this.props.getNotifications(globalVals.user.token).then((trans)=>{
 
-                console.log(trans);
+                // console.log(trans);
 
                 this.setState({loadingData:false});
 

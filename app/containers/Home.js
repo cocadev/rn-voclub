@@ -36,9 +36,9 @@ class Home extends Component {
 		//   this.setState({loadingData: false});
 		// });
 
-		console.log('--');
-		console.log(this.state.keyword);
-		console.log('--');
+		// console.log('--');
+		// console.log(this.state.keyword);
+		// console.log('--');
 
 		if (this.state.keyword != '') {
 			var data = 'searchKeyword=' + this.state.keyword;
@@ -70,6 +70,8 @@ class Home extends Component {
 		// }));
 		// this.props.navigation.navigate('Deals', {'cat':cat});
 
+		console.log('********************************************', cat)
+
 		this.props.changeTab('DealsList', cat);
 		globalVals.searchKeyword = '';
 		globalVals.refreshDeals = true;
@@ -77,14 +79,14 @@ class Home extends Component {
 	}
 
 	toggleSideMenu(navigation) {
-		console.log('toggle menu 111');
+		// console.log('toggle menu 111');
 		// this.props.navigation.dispatch(NavigationActions.navigate('DrawerOpen'));
 		// this.props.navigation.openDrawer();
 		navigation.openDrawer();
 	}
 
 	componentDidMount() {
-		console.log(globalVals.advertisingId + ' $$$$$$$$ ' + globalVals.clientId);
+		// console.log(globalVals.advertisingId + ' $$$$$$$$ ' + globalVals.clientId);
 
 		var tracker = new GoogleAnalyticsTracker(globalVals.googleTrackingCode);
 		tracker.trackScreenView('Home');
@@ -117,7 +119,7 @@ class Home extends Component {
 			);
 		}
 
-		console.log(Platform.OS + ' -- ' + Platform.Version);
+		// console.log(Platform.OS + ' -- ' + Platform.Version);
 
 		return (
 			<View style={Styles.containerNoPadding}>

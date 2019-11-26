@@ -45,14 +45,14 @@ class Deals extends Component {
 	}
 
 	toggleSideMenu(navigation) {
-		console.log('toggle menu 111');
+		// console.log('toggle menu 111');
 		// this.props.navigation.dispatch(NavigationActions.navigate('DrawerOpen'));
 		// this.props.navigation.openDrawer();
 		navigation.openDrawer();
 	}
 
 	dealItemPress(item) {
-		console.log(item);
+		// console.log(item);
 
 		this.props.navigation.dispatch(
 			NavigationActions.navigate({
@@ -113,18 +113,18 @@ class Deals extends Component {
 	}
 
 	loadDeals(cat) {
-		console.log('Deals Params ==== ');
-		console.log(globalVals.searchKeyword + ' ' + cat);
-		console.log('==== ');
+		// console.log('Deals Params ==== ');
+		// console.log(globalVals.searchKeyword + ' ' + cat);
+		// console.log('==== ');
 
 		globalVals.refreshDeals = false;
 		this.setState({ loadingData: true });
 
-		console.log('DEALS ===== GETTING SAVED DEALS =====');
+		// console.log('DEALS ===== GETTING SAVED DEALS =====');
 
 		AsyncStorage.getItem('savedDeals').then(
 			(val) => {
-				console.log('Deals Screen = = = = ' + val);
+				// console.log('Deals Screen = = = = ' + val);
 
 				if (val != '' && val != null && val != undefined) {
 					var savedDeals = JSON.parse(val);
@@ -136,7 +136,7 @@ class Deals extends Component {
 
 				if (globalVals.searchKeyword != '' && globalVals.searchKeyword != undefined) {
 					data = 'searchKeyword=' + globalVals.searchKeyword;
-					console.log('Searching for deals...');
+					// console.log('Searching for deals...');
 					this.props.searchDeals(data).then((search) => {
 						if (search.status == 200) {
 							this.renderDeals(cat);
@@ -147,14 +147,14 @@ class Deals extends Component {
 						}
 					});
 				} else {
-					console.log('loading deals from saved');
+					// console.log('loading deals from saved');
 					this.props.getDeals('').then((resp) => {
 						this.renderDeals(cat);
 					});
 				}
 			},
 			(err) => {
-				console.log('Deals Screen ====== saved deals error ===== ' + err);
+				// console.log('Deals Screen ====== saved deals error ===== ' + err);
 			}
 		);
 	}
@@ -182,7 +182,7 @@ class Deals extends Component {
 					globalVals.refreshDeals = false;
 				},
 				(err) => {
-					console.log(err);
+					// console.log(err);
 					for (let i = 0; i < deals.length; i++) {
 						deals[i].distance = '';
 					}
@@ -206,7 +206,7 @@ class Deals extends Component {
 
 		//   console.log('**********************************************', this.props.tabNav)
 
-		let cat = "Brunch";
+		let cat = 'Offers';
 		this.loadDeals(cat);
 
 		if (cat != this.state.pageTitle) {
@@ -225,6 +225,29 @@ class Deals extends Component {
 
 	componentDidFocus(props) {
 		console.log('Deal component focused');
+	}
+
+	componentDidUpdate(prevProps, state) {
+
+		var cat = this.props.navigation.getParam('cat', 'Offers');
+
+		// console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW', cat);
+
+		if ( state.pageTitle !== cat && cat != 'Favorite') {
+			console.log(' Deals Screen ==== ' + this.props.navigation.state.routeName);
+
+			if (globalVals.refreshDeals === true) {
+				this.loadDeals(cat);
+			}
+
+			console.log('Deal AAAA 1');
+			console.log(cat);
+			console.log(this.state.pageTitle);
+			if (cat != this.state.pageTitle) {
+				this.props.navigation.setParams({ page: cat });
+			}
+			this.setState({ pageTitle: cat });
+		}
 	}
 
 	// componentWillReceiveProps(nextProps){
@@ -259,12 +282,12 @@ class Deals extends Component {
 	}
 
 	isComponentActive(activeComponent) {
-		console.log('Deal is active = ' + activeComponent);
+		// console.log('Deal is active = ' + activeComponent);
 	}
 
 	handleAppStateChange(newAppState) {
 		console.log('Deal handle app state change');
-		console.log(newAppState);
+		// console.log(newAppState);
 	}
 
 	render() {

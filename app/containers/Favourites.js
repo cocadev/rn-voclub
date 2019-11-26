@@ -122,7 +122,7 @@ class Favourites extends Component {
 
             this.props.getDeals("").then( (resp) => {
             
-                console.log(resp.response.deals);
+                // console.log(resp.response.deals);
                 
                 var userFavs = "";
                 var allFavs = [];
