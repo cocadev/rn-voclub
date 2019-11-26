@@ -7,6 +7,12 @@ import { Provider, connect } from 'react-redux';
 
 import AppContainer from './app/containers/AppContainer';
 import getStore from "./app/store";
+import {YellowBox} from 'react-native';
+
+YellowBox.ignoreWarnings([
+  'Warning: componentWillMount',
+  'Warning: componentWillReceiveProps has been',
+]);
 
 export const store = getStore();
 

@@ -6,7 +6,8 @@ import {ActionCreators} from '../actions/index';
 
 import { GoogleAnalyticsTracker, GoogleTagManager, GoogleAnalyticsSettings } from "react-native-google-analytics-bridge";
 
-import {NavigationActions, DrawerActions} from 'react-navigation';
+import {NavigationActions} from 'react-navigation';
+import { DrawerActions } from 'react-navigation-drawer';
 import {ScrollView, Text, Image, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
