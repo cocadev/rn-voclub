@@ -12,6 +12,7 @@ import {YellowBox} from 'react-native';
 YellowBox.ignoreWarnings([
   'Warning: componentWillMount',
   'Warning: componentWillReceiveProps has been',
+  'Warning: componentWillUpdate',
 ]);
 
 export const store = getStore();

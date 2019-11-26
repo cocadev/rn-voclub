@@ -113,6 +113,51 @@ const Tabs = createBottomTabNavigator({
     ProfileTab:ProfileStack,
 },
 {
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state;
+        console.log('OOOOOOOOOOOOOOOOOOOO', routeName)
+        let iconName;
+        if (routeName === 'HomeTab') {
+          iconName = (focused ? images.iconHomeActive : images.iconHome);
+        } else if (routeName === 'DealsTab') {
+            iconName = (focused ? images.iconListActive : images.iconList);
+        }
+        else if (routeName === 'MapTab') {
+            iconName = (focused ? images.iconMapActive : images.iconMap);
+        }
+        else if (routeName === 'FavouritesTab') {
+            iconName = (focused ? images.iconHeartActive : images.iconHeart );
+        }
+        else if (routeName === 'ProfileTab') {
+            iconName = (focused ? images.iconUserActive : images.iconUser );
+        }
+
+        return <Image style={Styles.footerIcon} source={iconName} />;
+
+      },
+      tabBarOnPress: async ({previousScene, scene, jumpToIndex})=> {
+          console.log(scene);
+          console.log(navigation);
+          navigation.setParams({pageTitle:'Offers'});
+        if(scene.index==0){
+            console.log("Trying to call change tab ===== ");
+            globalVals.searchKeyword = "";
+            globalVals.refreshDeals = true;
+            store.dispatch(changeTab('getDeals',"Offers"));
+
+        }else if(scene.index==4) {
+            store.dispatch(changeTab('Profile','Profile'));
+        }else if(scene.index==3) {
+            console.log("current scene = favourites" +scene.index);
+            store.dispatch(changeTab('Favourites','Favorite'));
+            globalVals.searchKeyword = "";
+            globalVals.refreshDeals = true;
+        }
+        jumpToIndex(scene.index);
+        
+      },
+    }),
     tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',
     tabBarOptions: {
@@ -125,6 +170,7 @@ const Tabs = createBottomTabNavigator({
     initialRouteName:'HomeTab',
     lazy:true,
     removeClippedSubviews:true,
+
 });
 
 // Side menu

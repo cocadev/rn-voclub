@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ReactNative, { StatusBar, Dimensions } from 'react-native'
+import ReactNative, { StatusBar, Dimensions, PermissionsAndroid, ToastAndroid, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { bindActionCreators } from 'redux' 
@@ -18,8 +18,9 @@ import Hamburger from '../components/hamburger';
 
 import images from '../assets/imgLibrary';
 
-// import { Marker, Callout } from 'react-native-maps'
-// import ClusteredMapView from 'react-native-maps-super-cluster'
+import { Marker, Callout } from 'react-native-maps'
+import ClusteredMapView from 'react-native-maps-super-cluster'
+import Geolocation from '@react-native-community/geolocation';
 
 var _ = require('lodash');
 import Moment from 'moment'
@@ -69,7 +70,39 @@ class Map extends Component {
         navigation.openDrawer();
       }
 
-    componentDidMount(){
+      hasLocationPermission = async () => {
+        if (Platform.OS === 'ios' ||
+            (Platform.OS === 'android' && Platform.Version < 23)) {
+          return true;
+        }
+    
+        const hasPermission = await PermissionsAndroid.check(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        );
+    
+        if (hasPermission) return true;
+    
+        const status = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        );
+    
+        if (status === PermissionsAndroid.RESULTS.GRANTED) return true;
+    
+        if (status === PermissionsAndroid.RESULTS.DENIED) {
+          ToastAndroid.show('Location permission denied by user.', ToastAndroid.LONG);
+        } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
+          ToastAndroid.show('Location permission revoked by user.', ToastAndroid.LONG);
+        }
+    
+        return false;
+      }
+
+    async componentDidMount(){
+
+        const hasLocationPermission = await this.hasLocationPermission();
+
+        if (!hasLocationPermission) return;
+
         this.props.navigation.setParams({
             onMenuBtnPress: this.toggleSideMenu 
           });
@@ -83,7 +116,7 @@ class Map extends Component {
             deals[i]["location"] = {"latitude":Number(deals[i].latitude), "longitude":Number(deals[i].longitude)};
         }
 
-        navigator.geolocation.getCurrentPosition((coords)=>{
+        Geolocation.getCurrentPosition((coords)=>{
             console.log(coords);
             this.latitude = coords.coords.latitude;
             this.longitude = coords.coords.longitude;
@@ -97,6 +130,8 @@ class Map extends Component {
 
         this.setState({dataSource:deals});
     }
+
+    
     
     clusterPress(cluster){
 
@@ -148,7 +183,7 @@ class Map extends Component {
           clusteredPoints = clusteringEngine.getLeaves(clusterId, 100)
 
         return (
-          <View coordinate={coordinate} onPress={()=>this.clusterPress(clusteredPoints)}>
+          <Marker coordinate={coordinate} onPress={()=>this.clusterPress(clusteredPoints)}>
             <ImageBackground source={images.cluster} style={Styles.myClusterStyle}>
               <Text style={Styles.myClusterTextStyle}>
                 {pointCount}
@@ -172,14 +207,14 @@ class Map extends Component {
                */
             }
             
-          </View>
+          </Marker>
         )
       }
     
     //   renderMarker = (data) => <Marker key={data.id || Math.random()} coordinate={{latitude:data.latitude,longitude:data.longitude}} />
     renderMarker = (data) => {
         return(
-            <View identifier={'pin-${data.dealID}'} key={data.dealID || Math.random()} image={images.marker} coordinate={data.location} onPress={()=>this.markerPress(data)} />   
+            <Marker identifier={'pin-${data.dealID}'} key={data.dealID || Math.random()} image={images.marker} coordinate={data.location} onPress={()=>this.markerPress(data)} />   
         )
     }
 
@@ -231,7 +266,7 @@ class Map extends Component {
         return <View style={Styles.containerNoPadding}>
                 <StatusBar translucent backgroundColor="rgba(0, 0, 0, 0)"/>
                 { this.state.dataSource.length>0 ?
-                <View
+                <ClusteredMapView
                     style={{flex: 1}}
                     ref={(r) => { this.map = r }}
                     data={this.state.dataSource}
