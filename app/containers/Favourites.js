@@ -18,6 +18,7 @@ import Hamburger from '../components/hamburger';
 import NoRecords from '../components/noRecords';
 
 import images from '../assets/imgLibrary';
+import Geolocation from '@react-native-community/geolocation';
 
 var _ = require('lodash');
 import Moment from 'moment'
@@ -219,7 +220,7 @@ class Favourites extends Component {
 
                 console.log(favDeals);
 
-                navigator.geolocation.getCurrentPosition((coords)=>{
+                Geolocation.getCurrentPosition((coords)=>{
                 
                     for(let i=0; i< favDeals.length; i++){
                         var distance = Distance.calc({latitude:coords.coords.latitude, longitude:coords.coords.longitude},{latitude:parseFloat(favDeals[i].latitude),longitude:parseFloat(favDeals[i].longitude)});
@@ -301,20 +302,20 @@ class Favourites extends Component {
         console.log("fav component focused");
     }
 
-    componentWillReceiveProps(nextProps){
+    // componentWillReceiveProps(nextProps){
 
-        console.log("Fav Screen ===== Actual ========= " + nextProps.tabNav.param);
+    //     console.log("Fav Screen ===== Actual ========= " + nextProps.tabNav.param);
 
-        console.log("refreshing favvvvvvvvs " + globalVals.refreshDeals);
+    //     console.log("refreshing favvvvvvvvs " + globalVals.refreshDeals);
         
-        if(globalVals.refreshDeals === true){
-            console.log("refreshing favvvvvvvvs ");
-            this.loadDeals('');
-        }
+    //     if(globalVals.refreshDeals === true){
+    //         console.log("refreshing favvvvvvvvs ");
+    //         this.loadDeals('');
+    //     }
 
-        globalVals.refreshDeals = false;
+    //     globalVals.refreshDeals = false;
 
-    }
+    // }
 
     componentWillAppear() {
         console.log("Deal component will appear");

@@ -18,6 +18,7 @@ import globalVals from '../libs/global';
 import Hamburger from '../components/hamburger';
 import Loader from '../components/loader';
 import NoRecords from '../components/noRecords';
+import Geolocation from '@react-native-community/geolocation';
 
 import images from '../assets/imgLibrary';
 
@@ -163,7 +164,7 @@ class Deals extends Component {
                 var deals = this.props.deals;
             }
     
-            navigator.geolocation.getCurrentPosition((coords)=>{
+            Geolocation.getCurrentPosition((coords)=>{
                 
                 for(let i=0; i< deals.length; i++){
                     var distance = Distance.calc({latitude:coords.coords.latitude, longitude:coords.coords.longitude},{latitude:parseFloat(deals[i].latitude),longitude:parseFloat(deals[i].longitude)});
@@ -196,7 +197,9 @@ class Deals extends Component {
             onMenuBtnPress: this.toggleSideMenu 
           });
 
-        let cat = this.props.tabNav.param;
+        //   console.log('**********************************************', this.props.tabNav)
+
+        let cat = "getDeals";
         this.loadDeals(cat)
         
         if(cat!=this.state.pageTitle){
@@ -217,34 +220,34 @@ class Deals extends Component {
         console.log("Deal component focused");
     }
 
-    componentWillReceiveProps(nextProps){
+    // componentWillReceiveProps(nextProps){
 
-        console.log(nextProps);
+    //     console.log(nextProps);
 
-        console.log("Deals Screen ===== Actual ========= " + nextProps.tabNav.param);
+    //     console.log("Deals Screen ===== Actual ========= " + nextProps.tabNav.param);
 
-        if(nextProps.tabNav.param != "Favorite"){
+    //     if(nextProps.tabNav.param != "Favorite"){
 
-            console.log( " Deals Screen ==== " + this.props.navigation.state.routeName);
+    //         console.log( " Deals Screen ==== " + this.props.navigation.state.routeName);
 
-            var cat = nextProps.tabNav.param;
+    //         var cat = nextProps.tabNav.param;
             
-            if(globalVals.refreshDeals === true){
-                this.loadDeals(cat);
-            }
+    //         if(globalVals.refreshDeals === true){
+    //             this.loadDeals(cat);
+    //         }
             
             
             
-            console.log("Deal AAAA 1");
-            console.log(cat);
-            console.log(this.state.pageTitle);
-            if(cat!=this.state.pageTitle){
-                this.props.navigation.setParams({page:cat});
-            }
-            this.setState({'pageTitle':cat});
+    //         console.log("Deal AAAA 1");
+    //         console.log(cat);
+    //         console.log(this.state.pageTitle);
+    //         if(cat!=this.state.pageTitle){
+    //             this.props.navigation.setParams({page:cat});
+    //         }
+    //         this.setState({'pageTitle':cat});
 
-        }
-    }
+    //     }
+    // }
 
     componentWillAppear() {
         console.log("Deal component will appear");
